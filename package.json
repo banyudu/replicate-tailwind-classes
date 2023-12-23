@@ -1,0 +1,47 @@
+{
+  "name": "replicate-tailwind-classes",
+  "version": "0.0.0",
+  "description": "Replicate Tailwind Classes",
+  "main": "dist/index.js",
+  "bin": {
+    "replicate-tailwind-classes": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "tailwind",
+    "classes",
+    "replicate"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/banyudu/replicate-tailwind-classes.git"
+  },
+  "author": "banyudu <banyudu@gmail.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "find-root": "^1.1.0",
+    "ts-morph": "^21.0.1",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/find-root": "^1.1.4",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.10.4",
+    "@types/yargs": "^17.0.32",
+    "mocha": "^10.2.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
