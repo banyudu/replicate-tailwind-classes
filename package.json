@@ -1,6 +1,6 @@
 {
   "name": "replicate-tailwind-classes",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Replicate Tailwind Classes",
   "main": "dist/index.js",
   "bin": {
