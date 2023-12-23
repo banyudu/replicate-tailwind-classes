@@ -58,7 +58,7 @@ const sizeModifiers = [
 
 const transformTailwindClassname = (text: string, prefix = 'md'): string => {
   return text.trim().split(/\s+/).map(item => {
-    if (sizeModifiers.some(modifier => item.includes(`${modifier}:`))) {
+    if (sizeModifiers.some(modifier => item.includes(`${modifier}:`)) || !item) {
       return item
     }
     return `${item} ${prefix}:${item}`
