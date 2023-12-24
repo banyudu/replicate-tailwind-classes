@@ -65,9 +65,48 @@ const transformTailwindClassname = (text: string, prefix = 'md'): string => {
   }).join(' ')
 }
 
+const isInsideFunction = (node: Node, funcName?: string): boolean => {
+  let parentNode = node.getParent()
+  let lastParentNode = node
+
+  while (parentNode && parentNode !== lastParentNode) {
+    if (parentNode.getKind() === SyntaxKind.CallExpression) {
+      const innerFuncName = parentNode.getFirstChild()?.getText()
+      if (!funcName || innerFuncName === funcName) {
+        return true
+      }
+    }
+    lastParentNode = parentNode
+    parentNode = parentNode.getParent()
+  }
+  return false
+}
+
 const isTailwindCss = (node: StringLiteral): boolean => {
   const textNode = node as StringLiteral
   const text = textNode.getLiteralText()
+  const patterns = [
+    'flex',
+    'hidden',
+    'top-',
+    'left-',
+    'bottom-',
+    'right-',
+    'inset-',
+    'w-',
+    'h-',
+    'text-',
+    'max-',
+    'min-',
+    'bg-',
+    'border-',
+    'font-',
+    'z-'
+  ]
+
+  const arr = text.trim().split(/\s+/)
+  const strMatch = patterns.some(pattern => arr.some(item => item.startsWith(pattern)))
+
   const parentNode = textNode.getParent()
   if (parentNode) {
     if (parentNode.getKind() === SyntaxKind.JsxAttribute) {
@@ -81,6 +120,10 @@ const isTailwindCss = (node: StringLiteral): boolean => {
       if (funcName === 'cn' || funcName === 'twMerge') {
         return true
       }
+    } else if (isInsideFunction(node, 'cn') || isInsideFunction(node, 'twMerge')) {
+      return true
+    } else if (strMatch) {
+      return true
     }
   }
   return false
